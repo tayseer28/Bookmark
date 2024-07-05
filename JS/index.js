@@ -3,10 +3,6 @@ var siteURL = document.querySelector('#siteURL');
 var submitBtn = document.querySelector('#submitBtn');
 var deleteBtn = document.querySelector('tbody button'); 
 var modalElem  = document.querySelector('#exampleModal');
-var modalBackdrop = document.querySelector('.modal-backdrop');
-console.log(siteName);
-console.log(siteURL);
-
 
 
 var sites = [];
@@ -16,15 +12,13 @@ if (localStorage.getItem('sites')) {
 }
 // event listener for the site name input
 siteName.addEventListener('input', function () {
-    console.log(this)
+    
     validateInput(siteName);
 
 });
 
 // event listener for the site url input
 siteURL.addEventListener('input', function () {
-    console.log(this)
-    //this is refering to the element that the event is attached to
     validateInput(siteURL);
 
 });
@@ -32,7 +26,6 @@ siteURL.addEventListener('input', function () {
 // event listener for the submit button
 submitBtn.addEventListener('click', function (event) {
     event.preventDefault();//to prevent the submit button from submitting the form
-    console.log('submit button clicked');
     if(validateInput(siteName) && validateInput(siteURL))
     {
         addSite();
@@ -122,11 +115,7 @@ function displaySites() {
 function deleteSite(index)
 {
 
-    //use filter function to remove the site with the id
-    // sites = sites.filter(site => site.index !== index);
     sites.splice(index, 1);
-    console.log(sites);
-    console.log(index);
     updateLocalStorage();
     displaySites();
 
@@ -165,12 +154,13 @@ function showModal() {
         </div>
     `;
 
-    document.body.appendChild(modalElem); // Append modal to the body
+    document.body.appendChild(modalElem); 
 
-    var modal = new bootstrap.Modal(modalElem); // Initialize modal
-    modal.show(); // Show modal
+    var modal = new bootstrap.Modal(modalElem); 
+    modal.show(); 
 
     modalElem.addEventListener('hidden.bs.modal', function () {
-        modalElem.remove(); // Remove modal from the DOM after it is hidden
+        //without this line the modal will not be removed from the DOM
+        modalElem.remove(); 
     });
 }
